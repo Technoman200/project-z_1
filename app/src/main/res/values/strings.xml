@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Project Z1</string>
+    <string name="app_intro_title">Choose Your Own Adventure</string>
+
+    <string name="loading_1">Assets Loading</string>
+    <string name="loading_2">Level Compiling</string>
+    <string name="loading_3">Data Collecting</string>
+    <string name="loading_4">Challenges Creating</string>
+
+    <string name="start_game">Start</string>
+
+    <!--Strings for level names-->
+    <string name="level_1_name">Level 1: Forest</string>
+    <string name="level_2_name">Level 2: Hotel</string>
+    <string name="level_3_name">Level 3: Army Bunker</string>
+    <string name="level_4_name">Level 4: Underwater</string>
+    <string name="level_5_name">Level 5: Mines</string>
+
+    <!--Strings for level 1 scenes-->
+    <string name="level_1_advice_1">Be cautious…the decisions are by no means easy.</string>
+    <string name="level_1_advice_2">Beware those who are treacherous, my champion. Soon you will rise to greatness.</string>
+    <string name="level_1_advice_3">The easy decision isn\'t always the best. Look in the long term</string>
+    <string name="level_1_advice_4">You are but a playing piece in a larger game</string>
+    <string name="level_1_advice_end">Your journey will start now.</string>
+
+
+    <string name="health_describer">Health: </string>
+    <string name="health">100</string>
+    <string name="score_describer">Score: </string>
+    <string name="score">0</string>
+
+    <string name="starting_scenario">You are taking a hike in the forest.\n\n
+                                     You have enough food, water and supplies for one day.\n\n
+                                     It gets dark, so you turn on your flashlight.\n\n
+                                     After a couple of hours, your battery dies and you don\'t have a spare.\n\n
+                                     You mentally curse yourself for not being prepared.\n\n
+                                     You realize that you can\'t keep walking in the dark, and your supplies are running low,
+                                     so you have two options: \n\n
+                                     Go find shelter or go find water</string>
+
+    <string name="find_shelter">Find Shelter</string>
+    <string name="find_water">Find Water</string>
+
+
+
+    <string name="shelter_scenario">
+                You try to find shelter. Eventually, you spot a cave. \n\n
+                Its not the best, but it has to work for now. \n\n
+                You unpack your remaining supplies, and try to get comfortable, but
+                just when you are about to  go to sleep, you spot something odd on the ground. \n\n
+                On closer inspection, its not so odd..just pawprints…  \n\n
+                …PAWPRINTS?!? \n\n
+                You get really scared that this may be the home of a large predator....like a bear. \n\n
+                Fortunately for you, the footprints appear to be fairly old ...like a few days ago \n\n
+                You\'re extremely exhausted, but you\'re worried about the bear too. \n\n
+                What do you do: Stay and rest, or leave the cave and try to find a safer place to sleep</string>
+
+    <string name="stay_and_rest">Stay</string>
+    <string name="leave_the_cave">Leave</string>
+
+
+    <string name="water_scenario">You go and try to find some water. \n\n
+                                 Before long, you see a stream. \n\n
+                                 There are fish swimming slowly in the stream. \n\n
+                                 Do you: Try to catch some fish or get some water</string>
+
+    <string name="try_to_catch_fish">Catch fish</string>
+    <string name="get_some_water">Get water</string>
+
+
+
+
+
+
+
+
+</resources>
