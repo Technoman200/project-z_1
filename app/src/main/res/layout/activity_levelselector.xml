@@ -13,7 +13,7 @@
         android:layout_height="99dp"
         android:foregroundGravity="center_vertical|clip_horizontal"
         android:gravity="center|center_horizontal|center_vertical"
-        android:text="Choose your own adventure"
+        android:text="@string/choose_your_own_adventure"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold"

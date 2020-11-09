@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Project Z1</string>
     <string name="app_intro_title">Choose Your Own Adventure</string>
+    <string name="choose_your_own_adventure">Choose Your Own Adventure</string>
 
     <string name="loading_1">Assets Loading</string>
     <string name="loading_2">Level Compiling</string>
@@ -8,6 +9,7 @@
     <string name="loading_4">Challenges Creating</string>
 
     <string name="start_game">Start</string>
+    <!--Note: Eventually, replace buttons with clickable icons-->
 
     <!--Strings for level names-->
     <string name="level_1_name">Level 1: Forest</string>
@@ -29,6 +31,7 @@
     <string name="score_describer">Score: </string>
     <string name="score">0</string>
 
+    <!--Tier 1 scenario + buttons -->
     <string name="starting_scenario">You are taking a hike in the forest.\n\n
                                      You have enough food, water and supplies for one day.\n\n
                                      It gets dark, so you turn on your flashlight.\n\n
@@ -42,7 +45,7 @@
     <string name="find_water">Find Water</string>
 
 
-
+    <!--Tier 2 scenarios + buttons -->
     <string name="shelter_scenario">
                 You try to find shelter. Eventually, you spot a cave. \n\n
                 Its not the best, but it has to work for now. \n\n
@@ -68,9 +71,62 @@
     <string name="get_some_water">Get water</string>
 
 
+    <!--Tier 3 scenarios + buttons -->
+        <!--Tier 3a: shelter origin scenarios + buttons -->
+    <string name="stay_in_cave"> You decide to stay. \n\n
+                                You are extremely uneasy about the bear, but eventually you fall asleep. \n\n
+                                <!--(Day 2 )(+ 5 health) split into two strings?-->
+                                You wake up  in the morning to the sound of soft growling....oh no \n\n
+                                You open your eyes and you see a bear a short distance away from you in the cave. \n\n
+                                You have two options: Either try to make a run for it, or play dead</string>
+
+    <string name="run_from_cave">Run</string>
+    <string name="play_dead">Play Dead</string>
 
 
+    <string name="leave_cave">You decide to stay on the safe side and find a safer place to sleep \n\n
+                                You get more and more tired. \n\n
+                                <!-- -20 health -->
+                                Eventually, you see a hut in the distance, and you walk towards it slowly, your steps getting weaker and weaker. \n\n
+                                Do you try to get to the hut, or do you give in to your tiredness and sleep </string>
 
+    <string name="try_get_to_hut">Get to Hut</string>
+    <string name="sleep">Sleep</string>
+
+        <!--Tier 3b: water origin scenarios + buttons -->
+
+    <string name="catch_some_fish"> You try to catch some fish and manage to grab a good sized fish and cook it over a fire you made. \n\n
+                                The fish tasted quite good.
+                                Feeling full, and quite tired by the end of the day, you fall asleep in your sleeping bag \n\n
+
+          <!--  —Line 2—
+            -Day 2- +5 Health -->
+
+            <!--(-20 health) -->
+                            You wake up to a big stomachache. \n\n
+                            It turns out the river was polluted, and the fish had absorbed some of the toxins. \n\n
+                            Luckily for you, the fish you caught swam there from a different river. \n\n
+                            Also, you cooked the fish, which eliminated some of the toxins. \n\n
+                            You still don\'t want to take your chances with the water, so you try to find another stream once you recover from the stomachache. \n\n</string>
+
+    <string name="catch_some_fish_p2">  On the way to the stream, you see a medium sized snake by your foot. You remember this snake from a book you read once, and realize that it is venomous. \n\n
+                            You back up slowly, knowing that is the best way to avoid getting bitten, but you back up into a ruined wall. You now can only move forwards or to the sides \n\n
+                            Do you: Run away as fast as you can, hoping you can outrun the snake, or do you stay absolutely still:</string>
+
+    <string name="run_away">Run Away</string>
+    <string name="stay_still">Stay Still</string>
+
+
+    <string name="drink_water">You are extremely thirsty and decide to take some water. \n\n
+                                The water seems clear, and fish are swimming lazily in the river. \n\n
+                                If you boil the water, you lose much of the water to steam, and you have to put more effort in, making you even more tired. \n\n
+                                If you drink the water plain, you might risk getting sick, but you won' t invest too much energy \n\n
+                                Do you: Boil the water or drink it plain? </string>
+
+    <string name="boil_water">Boil Water</string>
+    <string name="drink_plain">Drink Plain</string>
+
+    <!--Tier 4 scenarios + buttons -->
 
 
 

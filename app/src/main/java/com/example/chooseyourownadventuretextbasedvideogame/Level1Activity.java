@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.dragankrstic.autotypetextview.AutoTypeTextView;
 public class Level1Activity extends AppCompatActivity{
 
+    //TODO: Replace Buttons with clickable icons
+
     TextView adviceTxt, healthDescriberTxt, healthTxt, scoreDescriberTxt, scoreTxt, lvlDescriberTxt, statusTxt;
     AutoTypeTextView scenarioTxt;
     Button decision1, decision2, startGameBtn;
@@ -69,7 +71,6 @@ public class Level1Activity extends AppCompatActivity{
             int adviceCounter = 0;
             @Override
             public void onTick(long millisUntilFinished) {
-
                 adviceCounter++;
                 if (adviceCounter == 0){
                     adviceTxt.animate().alpha(1.0f).setDuration(1200);
@@ -111,16 +112,13 @@ public class Level1Activity extends AppCompatActivity{
     public void gameLobby(){
         startGameBtn.animate().alpha(1.0f);
         startGameBtn.setVisibility(View.VISIBLE);
-
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startGameBtn.setVisibility(View.INVISIBLE);
                 onGameStart();
-
             }
         });
-
     }
 
     private void onGameStart() {
@@ -128,13 +126,17 @@ public class Level1Activity extends AppCompatActivity{
         View.OnClickListener shelter = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onShelterChosen();
+               // onShelterChosen();
+                methodName = "shelter";
+                onScenario();
             }
         };
         View.OnClickListener water = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onWaterChosen();
+               // onWaterChosen();
+                methodName = "water";
+                onScenario();
             }
         };
         decision1.setOnClickListener(shelter);
@@ -147,193 +149,233 @@ public class Level1Activity extends AppCompatActivity{
         scenarioTxt.setTextAutoTyping(getString(R.string.starting_scenario));
         scenarioTxt.setTypingSpeed(100);
 
-        //countdown timer is hacky solution, try to find code that runs when text stops typing
+        //countdown timer is hacky solution, try to find code that runs when text stops typing: calculate charset, 100ms is per each character
         new CountDownTimer(45000, 1000) {
             @Override
             public void onTick(long l) {
-
             }
-
             @Override
             public void onFinish() {
-
-               decisionTime();
-               methodName = "initial_decision";
-
+                methodName = "start_scenario";
+                onScenario();
             }
         }
         .start();
+    }
+
+    //for the calculating of the charset + timer?
+    public void endOfCharSet(){
+    // blank string
+          String scenarioName = " ";
+          int scenario_length = scenarioName.length() + 100;
+        new CountDownTimer(scenario_length, 100){
+              @Override
+              public void onTick(long millisUntilFinished) {
+              }
+
+              @Override
+              public void onFinish() {
+
+              }
+          }.start();
 
     }
 
     // possibly merge this and decisionTime into one method, called: onScenario
     public void onScenario(){
 
+        final DecisionTime decisionTime = new DecisionTime();
+
         switch (methodName) {
 
-            case "":
+            //start
+            case "start_scenario":
 
-        }
 
-    }
-
-    //method is for all decisions to be made in this whole activity, if statements for methods
-    public void decisionTime(){
-
-        DecisionTime decisionTime = new DecisionTime();
-
-        //switch and case statements: https://www.tutorialspoint.com/java/switch_statement_in_java.htm
-        switch (methodName) {
-
-            //tier one scenario/origin
-            case "initial_decision":
-
-                // The code within this method, same for all decision button changing, modify the int id per method
+                //decision
                 decisionTime.setDecisionBtn1(R.string.find_shelter);
                 decisionTime.setDecisionBtn2(R.string.find_water);
                 decision1.setText(decisionTime.getDecisionBtn1());
                 decision2.setText(decisionTime.getDecisionBtn2());
-                //
+
                 break;
 
-            // tier two scenarios
-            case "water_scenario":
+            //tier two scenarios
+            case "shelter":
 
-                // The code within this method, same for all decision button changing, modify the int id per method
-                decisionTime.setDecisionBtn1(R.string.get_some_water);
-                decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
-                decision1.setText(decisionTime.getDecisionBtn1());
-                decision2.setText(decisionTime.getDecisionBtn2());
-                //
-                break;
+                //v.onclick
+                View.OnClickListener stay_and_rest = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            case "shelter_scenario":
+                        methodName = "stay_and_rest";
+                        onScenario();
 
-                // The code within this method, same for all decision button changing, modify the int id per method
+                    }
+                };
+                View.OnClickListener leave_the_cave = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        methodName = "leave_cave";
+                        onScenario();
+
+                    }
+                };
+
+                decision1.setOnClickListener(stay_and_rest);
+                decision2.setOnClickListener(leave_the_cave);
+
+                //scenario
+                decision1.setVisibility(View.INVISIBLE);
+                decision2.setVisibility(View.INVISIBLE);
+                // switch back to Typing speed before if this leads to bug
+                scenarioTxt.setTextAutoTyping(getString(R.string.shelter_scenario));
+                scenarioTxt.setTypingSpeed(100);
+
+                //decision
                 decisionTime.setDecisionBtn1(R.string.stay_and_rest);
                 decisionTime.setDecisionBtn2(R.string.leave_the_cave);
                 decision1.setText(decisionTime.getDecisionBtn1());
                 decision2.setText(decisionTime.getDecisionBtn2());
-                //
+
+                break;
+
+            case "water":
+
+                //v.onclick
+
+                View.OnClickListener get_some_water = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        methodName = "get_water";
+                        onScenario();
+
+                    }
+                };
+                View.OnClickListener catch_some_fish = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        methodName = "catch_fish";
+                        onScenario();
+
+                    }
+                };
+
+                decision1.setOnClickListener(get_some_water);
+                decision2.setOnClickListener(catch_some_fish);
+
+                //scenario
+                decision1.setVisibility(View.INVISIBLE);
+                decision2.setVisibility(View.INVISIBLE);
+                // switch back to Typing speed before if this leads to bug
+                scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
+                scenarioTxt.setTypingSpeed(100);
+
+                //decision
+                decisionTime.setDecisionBtn1(R.string.get_some_water);
+                decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
+                decision1.setText(decisionTime.getDecisionBtn1());
+                decision2.setText(decisionTime.getDecisionBtn2());
+
+
                 break;
 
             //tier three scenarios
+                //shelter
+            case "stay_and_rest":
 
-            //water-origin
+                //v.onclick
+                View.OnClickListener test = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            //shelter-origin
+                        methodName = "";
+                        onScenario();
+
+                    }
+                };
+                View.OnClickListener test2 = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        methodName = "";
+                        onScenario();
+
+                    }
+                };
+
+                decision1.setOnClickListener(test);
+                decision2.setOnClickListener(test2);
+
+                //scenario
+                decision1.setVisibility(View.INVISIBLE);
+                decision2.setVisibility(View.INVISIBLE);
+                // switch back to Typing speed before if this leads to bug
+                scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
+                scenarioTxt.setTypingSpeed(100);
+
+                //decision
+                decisionTime.setDecisionBtn1(R.string.get_some_water);
+                decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
+                decision1.setText(decisionTime.getDecisionBtn1());
+                decision2.setText(decisionTime.getDecisionBtn2());
+
+
+                break;
+
+            case "leave_cave":
+
+                break;
+
+                //water
+            case "get_water":
+
+                break;
+
+            case "catch_fish":
+                //something
+                break;
+
+
         }
 
-        decision1.setVisibility(View.VISIBLE);
-        decision2.setVisibility(View.VISIBLE);
 
     }
 
-    //for the calculating of the charset
-//    public void endOfCharSet(){
+
+
+
+    //transfer all variables into this, and eliminate need for long, redundant methods
+//    public void onDecisionAChosen(){
+//
+//    }
+//
+//    public void onDecisionBChosen(){
 //
 //    }
 
-    //transfer all variables into this, and eliminate need for long, redundant methods
-    public void onDecisionAChosen(){
 
-    }
-
-    public void onDecisionBChosen(){
-
-    }
-
-
-    private void onWaterChosen() {
-
-        methodName = "water_scenario";
-        decision1.setVisibility(View.INVISIBLE);
-        decision2.setVisibility(View.INVISIBLE);
-        // switch back to Typing speed before if this leads to bug
-        scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
-        scenarioTxt.setTypingSpeed(100);
-
-        // timer or charset function or whatever
-
-        //decisionTime
-        decisionTime();
-
-
-        View.OnClickListener water_scenario1_water = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onFindWater();
-                // switch back to Typing speed before if this leads to bug
-
-            }
-        };
-
-        View.OnClickListener water_scenario2_catchfish = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onTryCatchFish();
-
-            }
-        };
-
-        decision1.setOnClickListener(water_scenario1_water);
-        decision2.setOnClickListener(water_scenario2_catchfish);
-    }
-
-    private void onShelterChosen() {
-
-        methodName = "shelter_scenario";
-        decision1.setVisibility(View.INVISIBLE);
-        decision2.setVisibility(View.INVISIBLE);
-        // switch back to Typing speed before if this leads to bug
-        scenarioTxt.setTextAutoTyping(getString(R.string.shelter_scenario));
-        scenarioTxt.setTypingSpeed(100);
-
-        // timer or charset function or whatever
-
-        //decisionTime
-        decisionTime();
-
-        View.OnClickListener shelter_scenario1_stay = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onStay();
-
-            }
-        };
-
-        View.OnClickListener shelter_scenario2_leave = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onLeave();
-
-            }
-        };
-
-        decision1.setOnClickListener(shelter_scenario1_stay);
-        decision2.setOnClickListener(shelter_scenario2_leave);
-    }
-
-
-    //tier 3 methods
-        //water origin
-    private void onFindWater(){
-
-    }
-    private void onTryCatchFish(){
-
-    }
-        //shelter origin
-    private void onStay(){
-
-    }
-
-    private void onLeave(){
-
-    }
+//
+//
+//
+//    //tier 3 methods
+//    //water origin
+//    private void onFindWater(){
+//
+//    }
+//    private void onTryCatchFish(){
+//
+//    }
+//    //shelter origin
+//    private void onStay(){
+//
+//    }
+//
+//    private void onLeave(){
+//
+//    }
 
 }
