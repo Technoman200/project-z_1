@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.dragankrstic.autotypetextview.AutoTypeTextView;
 public class Level1Activity extends AppCompatActivity{
 
-    //TODO: Replace Buttons with clickable icons
+    //TODO: Replace Buttons with clickable icons: Version 2.0 Patch: Update
 
     TextView adviceTxt, healthDescriberTxt, healthTxt, scoreDescriberTxt, scoreTxt, lvlDescriberTxt, statusTxt;
     AutoTypeTextView scenarioTxt;
@@ -164,10 +164,13 @@ public class Level1Activity extends AppCompatActivity{
     }
 
     //for the calculating of the charset + timer?
-    public void endOfCharSet(){
+    public void endOfScenarioText(){
+    final DecisionTime decisionTime = new DecisionTime();
     // blank string
-          String scenarioName = " ";
+          String scenarioName = decisionTime.getScenarioName();
           int scenario_length = scenarioName.length() + 100;
+
+
         new CountDownTimer(scenario_length, 100){
               @Override
               public void onTick(long millisUntilFinished) {
@@ -175,7 +178,11 @@ public class Level1Activity extends AppCompatActivity{
 
               @Override
               public void onFinish() {
+                    //put the decision button stuff here,
 
+                  decision1.setText(decisionTime.getDecisionBtn1());
+                  decision2.setText(decisionTime.getDecisionBtn2());
+                    // variables
               }
           }.start();
 
@@ -207,19 +214,15 @@ public class Level1Activity extends AppCompatActivity{
                 View.OnClickListener stay_and_rest = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         methodName = "stay_and_rest";
                         onScenario();
-
                     }
                 };
                 View.OnClickListener leave_the_cave = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         methodName = "leave_cave";
                         onScenario();
-
                     }
                 };
 
@@ -232,35 +235,29 @@ public class Level1Activity extends AppCompatActivity{
                 // switch back to Typing speed before if this leads to bug
                 scenarioTxt.setTextAutoTyping(getString(R.string.shelter_scenario));
                 scenarioTxt.setTypingSpeed(100);
+                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                endOfScenarioText();
 
-                //decision
+                //decision, merge into endOfScenarioText with changeable/mutable variables
                 decisionTime.setDecisionBtn1(R.string.stay_and_rest);
                 decisionTime.setDecisionBtn2(R.string.leave_the_cave);
-                decision1.setText(decisionTime.getDecisionBtn1());
-                decision2.setText(decisionTime.getDecisionBtn2());
 
                 break;
 
             case "water":
-
                 //v.onclick
-
                 View.OnClickListener get_some_water = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         methodName = "get_water";
                         onScenario();
-
                     }
                 };
                 View.OnClickListener catch_some_fish = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         methodName = "catch_fish";
                         onScenario();
-
                     }
                 };
 
@@ -270,17 +267,13 @@ public class Level1Activity extends AppCompatActivity{
                 //scenario
                 decision1.setVisibility(View.INVISIBLE);
                 decision2.setVisibility(View.INVISIBLE);
-                // switch back to Typing speed before if this leads to bug
+
                 scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
                 scenarioTxt.setTypingSpeed(100);
 
                 //decision
                 decisionTime.setDecisionBtn1(R.string.get_some_water);
                 decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
-                decision1.setText(decisionTime.getDecisionBtn1());
-                decision2.setText(decisionTime.getDecisionBtn2());
-
-
                 break;
 
             //tier three scenarios
@@ -288,42 +281,32 @@ public class Level1Activity extends AppCompatActivity{
             case "stay_and_rest":
 
                 //v.onclick
-                View.OnClickListener test = new View.OnClickListener() {
+                View.OnClickListener run_from_cave = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        methodName = "";
+                        methodName = "run_from_cave";
                         onScenario();
-
                     }
                 };
-                View.OnClickListener test2 = new View.OnClickListener() {
+                View.OnClickListener play_dead = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        methodName = "";
+                        methodName = "play_dead";
                         onScenario();
-
                     }
                 };
-
-                decision1.setOnClickListener(test);
-                decision2.setOnClickListener(test2);
+                decision1.setOnClickListener(run_from_cave);
+                decision2.setOnClickListener(play_dead);
 
                 //scenario
                 decision1.setVisibility(View.INVISIBLE);
                 decision2.setVisibility(View.INVISIBLE);
-                // switch back to Typing speed before if this leads to bug
                 scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
                 scenarioTxt.setTypingSpeed(100);
 
                 //decision
                 decisionTime.setDecisionBtn1(R.string.get_some_water);
                 decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
-                decision1.setText(decisionTime.getDecisionBtn1());
-                decision2.setText(decisionTime.getDecisionBtn2());
-
-
                 break;
 
             case "leave_cave":

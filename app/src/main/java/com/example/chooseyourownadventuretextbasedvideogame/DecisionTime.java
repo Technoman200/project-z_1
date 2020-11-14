@@ -5,8 +5,16 @@ public class DecisionTime {
     //res id
     int decisionBtn1;
     int decisionBtn2;
+    String scenarioName = " ";
 
-   // what method it is: should this be left to the MainActivity....I'd prefer if this was in the DecisionTime class..ask Mr. Kordi or go see Stack Exchange
+    public String getScenarioName() {
+        return scenarioName;
+    }
+
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
+    }
+// what method it is: should this be left to the MainActivity....I'd prefer if this was in the DecisionTime class..ask Mr. Kordi or go see Stack Exchange
 //    String methodName = "";
 //
 //
