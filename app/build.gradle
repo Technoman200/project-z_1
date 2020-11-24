@@ -34,4 +34,7 @@ dependencies {
     //AutoTypingTextView: Dragan Krstik (krstikdragan)
     implementation 'com.krsticdragan:autotypetextview:1.1'
 
+    //TyperTextView: iamporus
+    implementation 'com.github.iamporus:TypedTextView:1.1.2'
+
 }

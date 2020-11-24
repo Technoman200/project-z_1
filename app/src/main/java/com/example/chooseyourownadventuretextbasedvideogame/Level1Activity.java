@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -11,13 +12,16 @@ import android.widget.Toast;
 
 //once level 1 is complete, levels 2 through five are easy. Only hard part is the dialogue scenes between the characters
 
-import com.dragankrstic.autotypetextview.AutoTypeTextView;
+
+//replaced: import com.dragankrstic.autotypetextview.AutoTypeTextView;
+import com.prush.typedtextview.TypedTextView;
+
 public class Level1Activity extends AppCompatActivity{
 
     //TODO: Replace Buttons with clickable icons: Version 2.0 Patch: Update
 
     TextView adviceTxt, healthDescriberTxt, healthTxt, scoreDescriberTxt, scoreTxt, lvlDescriberTxt, statusTxt;
-    AutoTypeTextView scenarioTxt;
+    TypedTextView scenarioTxt;
     Button decision1, decision2, startGameBtn;
     ProgressBar statusProgressBar;
 
@@ -25,12 +29,14 @@ public class Level1Activity extends AppCompatActivity{
     //or just use this for startgame code
     //
     String methodName = " ";
-
+    final DecisionTime decisionTime = new DecisionTime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
+
+
 
         //initialize health and score, and other
         healthDescriberTxt = findViewById(R.id.healthDescribTxt);
@@ -90,10 +96,8 @@ public class Level1Activity extends AppCompatActivity{
             @Override
             public void onFinish() {
                 adviceTxt.setText(R.string.level_1_advice_end);
-
                 adviceTxt.setVisibility(View.INVISIBLE);
                 statusTxt.setVisibility(View.INVISIBLE);
-
                 //visibility onGame start
                 healthDescriberTxt.setVisibility(View.VISIBLE);
                 healthTxt.setVisibility(View.VISIBLE);
@@ -103,7 +107,6 @@ public class Level1Activity extends AppCompatActivity{
                 statusProgressBar.setVisibility(View.INVISIBLE);
                 adviceTxt.animate().alpha(0.0f).setDuration(1200);
                 gameLobby();
-
             }
         };
         adviceSwitcherTimer.start();
@@ -146,7 +149,7 @@ public class Level1Activity extends AppCompatActivity{
         scenarioTxt.setVisibility(View.VISIBLE);
 
         // switch back to Typing speed before if this leads to bug
-        scenarioTxt.setTextAutoTyping(getString(R.string.starting_scenario));
+        scenarioTxt.setTypedText(getString(R.string.starting_scenario));
         scenarioTxt.setTypingSpeed(100);
 
         //countdown timer is hacky solution, try to find code that runs when text stops typing: calculate charset, 100ms is per each character
@@ -156,6 +159,10 @@ public class Level1Activity extends AppCompatActivity{
             }
             @Override
             public void onFinish() {
+
+                decision1.setVisibility(View.VISIBLE);
+                decision2.setVisibility(View.VISIBLE);
+
                 methodName = "start_scenario";
                 onScenario();
             }
@@ -165,11 +172,11 @@ public class Level1Activity extends AppCompatActivity{
 
     //for the calculating of the charset + timer?
     public void endOfScenarioText(){
-    final DecisionTime decisionTime = new DecisionTime();
+
     // blank string
           String scenarioName = decisionTime.getScenarioName();
-          int scenario_length = scenarioName.length() + 100;
-
+          int scenario_length = (scenarioName.length() * 150) + 1000;
+          Log.i("ScenarioLength: ", String.valueOf(scenario_length));
 
         new CountDownTimer(scenario_length, 100){
               @Override
@@ -182,6 +189,9 @@ public class Level1Activity extends AppCompatActivity{
 
                   decision1.setText(decisionTime.getDecisionBtn1());
                   decision2.setText(decisionTime.getDecisionBtn2());
+                  decision1.setVisibility(View.VISIBLE);
+                  decision2.setVisibility(View.VISIBLE);
+
                     // variables
               }
           }.start();
@@ -191,15 +201,39 @@ public class Level1Activity extends AppCompatActivity{
     // possibly merge this and decisionTime into one method, called: onScenario
     public void onScenario(){
 
-        final DecisionTime decisionTime = new DecisionTime();
+        //maybe put default two view.onclick listeners which are edited each time
+
+        decision1.setVisibility(View.INVISIBLE);
+        decision2.setVisibility(View.INVISIBLE);
 
         switch (methodName) {
-
             //start
             case "start_scenario":
 
+                View.OnClickListener shelter = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // onShelterChosen();
+                        methodName = "shelter";
+                        onScenario();
+                    }
+                };
+                View.OnClickListener water = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // onWaterChosen();
+                        methodName = "water";
+                        onScenario();
+                    }
+                };
+                decision1.setOnClickListener(shelter);
+                decision2.setOnClickListener(water);
 
-                //decision
+
+
+                decision1.setVisibility(View.VISIBLE);
+                decision2.setVisibility(View.VISIBLE);
+
                 decisionTime.setDecisionBtn1(R.string.find_shelter);
                 decisionTime.setDecisionBtn2(R.string.find_water);
                 decision1.setText(decisionTime.getDecisionBtn1());
@@ -233,7 +267,7 @@ public class Level1Activity extends AppCompatActivity{
                 decision1.setVisibility(View.INVISIBLE);
                 decision2.setVisibility(View.INVISIBLE);
                 // switch back to Typing speed before if this leads to bug
-                scenarioTxt.setTextAutoTyping(getString(R.string.shelter_scenario));
+                scenarioTxt.setTypedText(getString(R.string.shelter_scenario));
                 scenarioTxt.setTypingSpeed(100);
                 decisionTime.setScenarioName(scenarioTxt.getText().toString());
                 endOfScenarioText();
@@ -265,13 +299,15 @@ public class Level1Activity extends AppCompatActivity{
                 decision2.setOnClickListener(catch_some_fish);
 
                 //scenario
+
                 decision1.setVisibility(View.INVISIBLE);
                 decision2.setVisibility(View.INVISIBLE);
-
-                scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
+                scenarioTxt.setTypedText(getString(R.string.water_scenario));
                 scenarioTxt.setTypingSpeed(100);
-
+                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                endOfScenarioText();
                 //decision
+
                 decisionTime.setDecisionBtn1(R.string.get_some_water);
                 decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
                 break;
@@ -301,15 +337,46 @@ public class Level1Activity extends AppCompatActivity{
                 //scenario
                 decision1.setVisibility(View.INVISIBLE);
                 decision2.setVisibility(View.INVISIBLE);
-                scenarioTxt.setTextAutoTyping(getString(R.string.water_scenario));
+                scenarioTxt.setTypedText(getString(R.string.stay_in_cave));
                 scenarioTxt.setTypingSpeed(100);
+                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                endOfScenarioText();
 
                 //decision
-                decisionTime.setDecisionBtn1(R.string.get_some_water);
-                decisionTime.setDecisionBtn2(R.string.try_to_catch_fish);
+                decisionTime.setDecisionBtn1(R.string.run_from_cave);
+                decisionTime.setDecisionBtn2(R.string.play_dead);
                 break;
 
             case "leave_cave":
+
+                View.OnClickListener try_to_get_to_hut = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        methodName = "try_to_get_to_hut";
+                        onScenario();
+                    }
+                };
+                View.OnClickListener sleep = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        methodName = "sleep";
+                        onScenario();
+                    }
+                };
+                decision1.setOnClickListener(try_to_get_to_hut);
+                decision2.setOnClickListener(sleep);
+
+                //scenario
+                decision1.setVisibility(View.INVISIBLE);
+                decision2.setVisibility(View.INVISIBLE);
+                scenarioTxt.setTypedText(getString(R.string.leave_cave));
+                scenarioTxt.setTypingSpeed(100);
+                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                endOfScenarioText();
+
+                //decision
+                decisionTime.setDecisionBtn1(R.string.try_get_to_hut);
+                decisionTime.setDecisionBtn2(R.string.sleep);
 
                 break;
 
@@ -327,38 +394,5 @@ public class Level1Activity extends AppCompatActivity{
 
 
     }
-
-
-
-
-    //transfer all variables into this, and eliminate need for long, redundant methods
-//    public void onDecisionAChosen(){
-//
-//    }
-//
-//    public void onDecisionBChosen(){
-//
-//    }
-
-
-//
-//
-//
-//    //tier 3 methods
-//    //water origin
-//    private void onFindWater(){
-//
-//    }
-//    private void onTryCatchFish(){
-//
-//    }
-//    //shelter origin
-//    private void onStay(){
-//
-//    }
-//
-//    private void onLeave(){
-//
-//    }
 
 }

@@ -64,22 +64,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthTxt" />
 
-    <com.dragankrstic.autotypetextview.AutoTypeTextView
+
+    <com.prush.typedtextview.TypedTextView
         android:id="@+id/scenarioTxt"
-        android:layout_width="402dp"
-        android:layout_height="527dp"
-        android:layout_marginTop="80dp"
-        android:alpha="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="208dp"
+        android:gravity="start"
         android:text="@string/shelter_scenario"
         android:textColor="#00BCD4"
         android:textSize="16sp"
+        app:cursor_blink_speed="530"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122"
-        attv:animateTextTypeWithoutMistakes="Hello World!" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreDescriberTxt"
+        app:randomize_type_seed="75"
+        app:randomize_typing_speed="true"
+        app:sentence_pause="1500"
+        app:show_cursor="true"
+        app:split_sentences="true"
+        app:typing_speed="100" />
 
     <TextView
         android:id="@+id/levelTxt"
