@@ -6,6 +6,15 @@ public class DecisionTime {
     int decisionBtn1;
     int decisionBtn2;
     String scenarioName = " ";
+    String scenarioTextContent = " ";
+
+    public String getScenarioTextContent() {
+        return scenarioTextContent;
+    }
+
+    public void setScenarioTextContent(String scenarioTextContent) {
+        this.scenarioTextContent = scenarioTextContent;
+    }
 
     public String getScenarioName() {
         return scenarioName;

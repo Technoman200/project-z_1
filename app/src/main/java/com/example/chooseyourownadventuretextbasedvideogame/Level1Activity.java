@@ -36,8 +36,6 @@ public class Level1Activity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
 
-
-
         //initialize health and score, and other
         healthDescriberTxt = findViewById(R.id.healthDescribTxt);
         healthTxt = findViewById(R.id.healthTxt);
@@ -175,26 +173,25 @@ public class Level1Activity extends AppCompatActivity{
 
     // blank string
           String scenarioName = decisionTime.getScenarioName();
-          int scenario_length = (scenarioName.length() * 150) + 1000;
-          Log.i("ScenarioLength: ", String.valueOf(scenario_length));
+          final String scenarioTextContents = decisionTime.getScenarioTextContent();
 
-        new CountDownTimer(scenario_length, 100){
-              @Override
-              public void onTick(long millisUntilFinished) {
-              }
+          scenarioTxt.setTypedText(scenarioTextContents);
+          scenarioTxt.setTypingSpeed(100);
 
-              @Override
-              public void onFinish() {
-                    //put the decision button stuff here,
+        //Set listener to invoke other actions based on status.
+            scenarioTxt.setOnCharacterTypedListener( new TypedTextView.OnCharacterTypedListener() {
+            @Override
+            public void onCharacterTyped( char character, int index )
+            {
+                if(index == scenarioTextContents.length() - 1) {
 
-                  decision1.setText(decisionTime.getDecisionBtn1());
-                  decision2.setText(decisionTime.getDecisionBtn2());
-                  decision1.setVisibility(View.VISIBLE);
-                  decision2.setVisibility(View.VISIBLE);
-
-                    // variables
-              }
-          }.start();
+                    decision1.setText(decisionTime.getDecisionBtn1());
+                    decision2.setText(decisionTime.getDecisionBtn2());
+                    decision1.setVisibility(View.VISIBLE);
+                    decision2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 
@@ -229,8 +226,6 @@ public class Level1Activity extends AppCompatActivity{
                 decision1.setOnClickListener(shelter);
                 decision2.setOnClickListener(water);
 
-
-
                 decision1.setVisibility(View.VISIBLE);
                 decision2.setVisibility(View.VISIBLE);
 
@@ -264,12 +259,8 @@ public class Level1Activity extends AppCompatActivity{
                 decision2.setOnClickListener(leave_the_cave);
 
                 //scenario
-                decision1.setVisibility(View.INVISIBLE);
-                decision2.setVisibility(View.INVISIBLE);
                 // switch back to Typing speed before if this leads to bug
-                scenarioTxt.setTypedText(getString(R.string.shelter_scenario));
-                scenarioTxt.setTypingSpeed(100);
-                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                decisionTime.setScenarioTextContent(String.valueOf(R.string.shelter_scenario));
                 endOfScenarioText();
 
                 //decision, merge into endOfScenarioText with changeable/mutable variables
@@ -300,11 +291,7 @@ public class Level1Activity extends AppCompatActivity{
 
                 //scenario
 
-                decision1.setVisibility(View.INVISIBLE);
-                decision2.setVisibility(View.INVISIBLE);
-                scenarioTxt.setTypedText(getString(R.string.water_scenario));
-                scenarioTxt.setTypingSpeed(100);
-                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                decisionTime.setScenarioTextContent(String.valueOf(R.string.water_scenario));
                 endOfScenarioText();
                 //decision
 
@@ -335,11 +322,7 @@ public class Level1Activity extends AppCompatActivity{
                 decision2.setOnClickListener(play_dead);
 
                 //scenario
-                decision1.setVisibility(View.INVISIBLE);
-                decision2.setVisibility(View.INVISIBLE);
-                scenarioTxt.setTypedText(getString(R.string.stay_in_cave));
-                scenarioTxt.setTypingSpeed(100);
-                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+                decisionTime.setScenarioTextContent(String.valueOf(R.string.stay_in_cave));
                 endOfScenarioText();
 
                 //decision
@@ -367,11 +350,8 @@ public class Level1Activity extends AppCompatActivity{
                 decision2.setOnClickListener(sleep);
 
                 //scenario
-                decision1.setVisibility(View.INVISIBLE);
-                decision2.setVisibility(View.INVISIBLE);
-                scenarioTxt.setTypedText(getString(R.string.leave_cave));
-                scenarioTxt.setTypingSpeed(100);
-                decisionTime.setScenarioName(scenarioTxt.getText().toString());
+
+                decisionTime.setScenarioTextContent(String.valueOf(R.string.leave_cave));
                 endOfScenarioText();
 
                 //decision
@@ -394,5 +374,4 @@ public class Level1Activity extends AppCompatActivity{
 
 
     }
-
 }
